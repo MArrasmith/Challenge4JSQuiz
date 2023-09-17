@@ -7,6 +7,11 @@
 // WHEN I answer a question
 // THEN I am presented with another question
 //array..multiple choice
+function startGame() {
+  populateQuestion();
+  // start the timer
+  // populate a question
+}
 
 // WHEN I answer a question incorrectly
 // THEN time is subtracted from the clock
