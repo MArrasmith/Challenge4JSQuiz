@@ -20,7 +20,6 @@
 // 1. User clicks a button -> put question on page and start timer
 // 2. 
 
-
 // ----------------------------
 var questionField = document.getElementById("questionField")
 
