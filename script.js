@@ -7,6 +7,76 @@ var answerField3 = document.querySelector("#answerField3");
 var countdown = document.querySelector(".countdown-timer");
 var timeLeft = 90;
 var userScore = 0;
+
+// WHEN I click the start button
+pressPlay.addEventListener("click", startGame);
+answerField0.addEventListener("click", compareAnswer);
+answerField1.addEventListener("click", compareAnswer);
+answerField2.addEventListener("click", compareAnswer);
+answerField3.addEventListener("click", compareAnswer);
+
+// THEN a timer starts and I am presented with a question
+function startGame() {
+  populateQuestion();
+  startTimer();
+}
+
+function compareAnswer(event) {
+  console.log(event.target.innerText);
+  console.log(questions[currentQuestion].correctAnswer);
+// WHEN I answer a question
+  if (event.target.innerText === questions[currentQuestion].correctAnswer) {
+    window.alert("That's Correct!");
+    userScore=userScore+5;
+    window.alert("Your score is now " + userScore)
+    localStorage.setItem("userScore", JSON.stringify(userScore));
+    endGame()
+  }
+// WHEN I answer a question incorrectly
+// THEN time is subtracted from the clock
+  else {
+    window.alert("That is Wrong!");
+    timeLeft=timeLeft-15
+  }
+// THEN I am presented with another question
+  currentQuestion++;
+  populateQuestion();
+}
+
+function startTimer() {
+
+  var timeRemaining = setInterval(function () {
+    timeLeft--;
+    countdown.textContent = "You have " + timeLeft + " remaining.";
+
+    if (timeLeft === 0) {
+      clearInterval(timeRemaining);
+      endGame();
+    }
+  }, 1000);
+}
+// var storedScore = window.prompt(
+//   'Enter your name to save your score!')
+
+function endGame() {
+  console.clear();
+  
+}
+// Grab one question from the questions array using currentQuestion index
+//button with clickevent calls populatequestion and send populatequestion number
+function populateQuestion() {
+
+  questionField.innerHTML = questions[currentQuestion].text;
+
+  for (var i = 0; i < questions[currentQuestion].answers.length; i++) {
+    var answerField = document.getElementById("answerField" + i);
+
+    answerField.innerHTML = questions[currentQuestion].answers[i];
+  }
+}
+
+var currentQuestion = 0;
+
 var currentQuestion = 0;
 var questions = [
   {
@@ -52,72 +122,3 @@ var questions = [
     correctAnswer: 'b) window.prompt'
   },
 ]
-
-// WHEN I click the start button
-pressPlay.addEventListener("click", startGame);
-answerField0.addEventListener("click", compareAnswer);
-answerField1.addEventListener("click", compareAnswer);
-answerField2.addEventListener("click", compareAnswer);
-answerField3.addEventListener("click", compareAnswer);
-
-// THEN a timer starts and I am presented with a question
-function startGame() {
-  populateQuestion();
-  startTimer();
-}
-
-// Grab one question from the questions array using currentQuestion index
-//button with clickevent calls populatequestion and send populatequestion number
-function populateQuestion() {
-
-  questionField.innerHTML = questions[currentQuestion].text;
-
-  for (var i = 0; i < questions[currentQuestion].answers.length; i++) {
-    var answerField = document.getElementById("answerField" + i);
-
-    answerField.innerHTML = questions[currentQuestion].answers[i];
-  }
-}
-
-function compareAnswer(event) {
-  console.log(event.target.innerText);
-  console.log(questions[currentQuestion].correctAnswer);
-// WHEN I answer a question
-  if (event.target.innerText === questions[currentQuestion].correctAnswer) {
-    window.alert("That's Correct!");
-    userScore=userScore+5;
-    window.alert("Your score is now " + userScore)
-    endGame()
-  }
-// WHEN I answer a question incorrectly
-// THEN time is subtracted from the clock
-  else {
-    window.alert("That is Wrong!");
-    timeLeft=timeLeft-15
-  }
-// THEN I am presented with another question
-  currentQuestion++;
-  populateQuestion();
-}
-
-function startTimer() {
-
-  var timeRemaining = setInterval(function () {
-    timeLeft--;
-    countdown.textContent = "You have " + timeLeft + " remaining.";
-
-    if (timeLeft === 0) {
-      clearInterval(timeRemaining);
-      endGame();
-    }
-  }, 1000);
-}
-var storedScore = 
-
-// WHEN all questions are answered or the timer reaches 0
-// THEN the game is over
-// WHEN the game is over
-// THEN I can save my initials and my score
-function endGame() {
-  window.stop();
-}
