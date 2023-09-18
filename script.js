@@ -28,6 +28,8 @@ var answerField0 = document.querySelector("#answerField0");
 var answerField1 = document.querySelector("#answerField1");
 var answerField2 = document.querySelector("#answerField2");
 var answerField3 = document.querySelector("#answerField3");
+var countdown = document.querySelector(".countdown-timer");
+var timeLeft = 90;
 
 
 pressPlay.addEventListener("click", startGame);
@@ -41,16 +43,67 @@ answerField3.addEventListener("click", compareAnswer);
 //   // populate a question
 function startGame() {
   populateQuestion();
+  startTimer();
 }
 
-function compareAnswer(event) {
-  console.log(event.target.innerText)
-  console.log(questions[currentQuestion].correctAnswer)
+// if (questions[currentQuestion].correctAnswer)
+// If the answer is the same as the correct answer then the game progresses to the next question
+//then the user score increases by 1, and the user gets an alert telling them they got the got it correct
 
-  // if (questions[currentQuestion].correctAnswer)
-  // If the answer is the same as the correct answer then the game progresses to the next question
-  //The current question index increases by 1
-  //then the next question  
+// else the time clock decreases by 15 seconds
+
+//The current question index increases by 1
+//then the next question populates using the populate question function
+
+function compareAnswer(event) {
+  console.log(event.target.innerText);
+  console.log(questions[currentQuestion].correctAnswer);
+
+  if (event.target.innerText === questions[currentQuestion].correctAnswer) {
+    window.alert("That's Correct!");
+  }
+  else {
+    window.alert("That is Wrong!");
+  }
+
+  currentQuestion++;
+  populateQuestion();
+}
+
+
+// Selects element by class
+// var timeEl = document.querySelector("#countdown-timer");
+
+
+// var secondsLeft = 10;
+
+// function setTime() {
+//   // Sets interval in variable
+//   var timerInterval = setInterval(function() {
+//     secondsLeft--;
+//     timeEl.textContent = secondsLeft + " seconds left till colorsplosion.";
+
+//     if(secondsLeft === 0) {
+//       // Stops execution of action at set interval
+//       clearInterval(timerInterval);
+//       // Calls function to create and append image
+//       sendMessage();
+//     }
+
+//   }, 1000);
+// }
+
+function startTimer() {
+
+  var timeRemaining = setInterval(function () {
+    timeLeft--;
+    countdown.textContent = "You have " + timeLeft + " remaining.";
+
+    if (timeLeft === 0) {
+      clearInterval(timeRemaining);
+      console.log("you lose")
+    }
+  }, 1000);
 }
 
 
@@ -64,14 +117,8 @@ function populateQuestion() {
     var answerField = document.getElementById("answerField" + i);
 
     answerField.innerHTML = questions[currentQuestion].answers[i];
-
-
   }
 }
-
-
-
-// populateQuestion();
 
 
 var currentQuestion = 0;
@@ -80,8 +127,8 @@ var questions = [
   {
     number: 1,
     text: 'Question 1 | What does HTML stand for?',
-    answers: ['HyperText Markup Language', 'HydroTech Medium Lowpoint', 'Hexagon Track Mile Log', 'HeliTract Missed Loop'],
-    correctAnswer: 'HyperText Markup Language'
+    answers: ['a) HyperText Markup Language', 'b) HydroTech Medium Lowpoint', 'c) Hexagon Track Mile Log', 'd) HeliTract Missed Loop'],
+    correctAnswer: 'a) HyperText Markup Language'
   },
   {
     number: 2,
@@ -131,6 +178,3 @@ var questions = [
 
 // function countdown()
 
-
-
-// startGame();
