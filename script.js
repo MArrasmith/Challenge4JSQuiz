@@ -1,15 +1,13 @@
 // GIVEN I am taking a code quiz
 
-// WHEN I click the start button
-// THEN a timer starts and I am presented with a question
+
+
 //event listener on a button..//function(event) with a timer  
 
-// WHEN I answer a question
-// THEN I am presented with another question
+
 //array..multiple choice
 
-// WHEN I answer a question incorrectly
-// THEN time is subtracted from the clock
+
 
 // WHEN all questions are answered or the timer reaches 0
 // THEN the game is over
@@ -30,68 +28,40 @@ var answerField2 = document.querySelector("#answerField2");
 var answerField3 = document.querySelector("#answerField3");
 var countdown = document.querySelector(".countdown-timer");
 var timeLeft = 90;
+var userScore = 0;
 
-
+// WHEN I click the start button
 pressPlay.addEventListener("click", startGame);
 answerField0.addEventListener("click", compareAnswer);
 answerField1.addEventListener("click", compareAnswer);
 answerField2.addEventListener("click", compareAnswer);
 answerField3.addEventListener("click", compareAnswer);
 
-
-//   // start the timer
-//   // populate a question
+// THEN a timer starts and I am presented with a question
 function startGame() {
   populateQuestion();
   startTimer();
 }
 
-// if (questions[currentQuestion].correctAnswer)
-// If the answer is the same as the correct answer then the game progresses to the next question
-//then the user score increases by 1, and the user gets an alert telling them they got the got it correct
-
-// else the time clock decreases by 15 seconds
-
-//The current question index increases by 1
-//then the next question populates using the populate question function
-
 function compareAnswer(event) {
   console.log(event.target.innerText);
   console.log(questions[currentQuestion].correctAnswer);
-
+// WHEN I answer a question
   if (event.target.innerText === questions[currentQuestion].correctAnswer) {
     window.alert("That's Correct!");
+    userScore=userScore+5;
+    window.alert("Your score is now " + userScore)
   }
+// WHEN I answer a question incorrectly
+// THEN time is subtracted from the clock
   else {
     window.alert("That is Wrong!");
+    timeLeft=timeLeft-15
   }
-
+// THEN I am presented with another question
   currentQuestion++;
   populateQuestion();
 }
-
-
-// Selects element by class
-// var timeEl = document.querySelector("#countdown-timer");
-
-
-// var secondsLeft = 10;
-
-// function setTime() {
-//   // Sets interval in variable
-//   var timerInterval = setInterval(function() {
-//     secondsLeft--;
-//     timeEl.textContent = secondsLeft + " seconds left till colorsplosion.";
-
-//     if(secondsLeft === 0) {
-//       // Stops execution of action at set interval
-//       clearInterval(timerInterval);
-//       // Calls function to create and append image
-//       sendMessage();
-//     }
-
-//   }, 1000);
-// }
 
 function startTimer() {
 
@@ -101,7 +71,8 @@ function startTimer() {
 
     if (timeLeft === 0) {
       clearInterval(timeRemaining);
-      console.log("you lose")
+      window.alert("you lose");
+      return startGame();
     }
   }, 1000);
 }
@@ -120,7 +91,6 @@ function populateQuestion() {
   }
 }
 
-
 var currentQuestion = 0;
 
 var questions = [
@@ -133,14 +103,14 @@ var questions = [
   {
     number: 2,
     text: 'Who invented HTML?',
-    answers: ['Sir Isaac Newton', 'Sir John Williams', 'Sir Tim Berners-Lee', 'Sir Patrick Stewart'],
-    correctAnswer: 'Sir Tim Berners-Lee'
+    answers: ['a) Sir Isaac Newton', 'b) Sir John Williams', 'c) Sir Tim Berners-Lee', 'd) Sir Patrick Stewart'],
+    correctAnswer: 'c) Sir Tim Berners-Lee'
   },
   {
     number: 3,
     text: 'When was HTML created?',
-    answers: ['1985', '2001', '1992', '1990'],
-    correctAnswer: '1990'
+    answers: ['a) 1985', 'b) 2001', 'c) 1992', 'd) 1990'],
+    correctAnswer: 'd) 1990'
   },
   {
     number: 4,
