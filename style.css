@@ -17,7 +17,7 @@ body {
     font-weight: 600;
 }
 
-#letsPlay {
+.letsPlay {
     border: solid;
     background-color: teal;
     border-color: antiquewhite;
