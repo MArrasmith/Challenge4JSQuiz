@@ -22,30 +22,33 @@ function startGame() {
 }
 
 function compareAnswer(event) {
-  console.log(event.target.innerText);
-  console.log(questions[currentQuestion].correctAnswer);
-// WHEN I answer a question
+  // WHEN I answer a question
   if (event.target.innerText === questions[currentQuestion].correctAnswer) {
     window.alert("That's Correct!");
-    userScore=userScore+5;
+    userScore = userScore + 5;
     window.alert("Your score is now " + userScore)
     localStorage.setItem("userScore", JSON.stringify(userScore));
-    endGame()
   }
-// WHEN I answer a question incorrectly
-// THEN time is subtracted from the clock
+  // WHEN I answer a question incorrectly
+  // THEN time is subtracted from the clock
   else {
     window.alert("That is Wrong!");
-    timeLeft=timeLeft-15
+    timeLeft = timeLeft - 15
   }
-// THEN I am presented with another question
-  currentQuestion++;
-  populateQuestion();
-}
 
+  currentQuestion++;
+  // THEN I am presented with another question
+  if (currentQuestion == 7) {
+    endGame()
+    clearInterval(timeRemaining);
+  } else {
+    populateQuestion();
+  }
+}
+var timeRemaining
 function startTimer() {
 
-  var timeRemaining = setInterval(function () {
+  timeRemaining = setInterval(function () {
     timeLeft--;
     countdown.textContent = "You have " + timeLeft + " remaining.";
 
@@ -59,8 +62,23 @@ function startTimer() {
 //   'Enter your name to save your score!')
 
 function endGame() {
-  console.clear();
+  window.alert("Game over! Your score is " + userScore);
+
+
+  enterHighScore();
+}
+
+function removeOptions() {
   
+}
+
+function enterHighScore() {
+  window.prompt("Enter your initials")
+
+}
+
+function displayHighScores() {
+
 }
 // Grab one question from the questions array using currentQuestion index
 //button with clickevent calls populatequestion and send populatequestion number
@@ -74,8 +92,6 @@ function populateQuestion() {
     answerField.innerHTML = questions[currentQuestion].answers[i];
   }
 }
-
-var currentQuestion = 0;
 
 var currentQuestion = 0;
 var questions = [
