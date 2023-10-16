@@ -69,15 +69,17 @@ function endGame() {
 }
 
 function removeOptions() {
-  
+  // remove question and answers or remove event listeners
 }
 
 function enterHighScore() {
   window.prompt("Enter your initials")
+  //add score and initials to local storage
 
 }
 
 function displayHighScores() {
+  //add high score section in html
 
 }
 // Grab one question from the questions array using currentQuestion index
